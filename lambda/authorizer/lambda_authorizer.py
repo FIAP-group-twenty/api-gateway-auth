@@ -3,17 +3,18 @@ import boto3
 
 
 def lambda_handler(event, context):
-    cpf = event['headers'].get('cpf')
+    cpf = event['headers'].get('cpf')  # todo: validar só o cpf? precisamos também validar corpo de cadastro
     if not cpf or not validate_cpf(cpf):
         return {
             "statusCode": 403,
             "body": json.dumps("Unauthorized")
         }
 
+    # todo: validar toda essa requisição, o que precisamos?
     client = boto3.client('cognito-idp')
     response = client.admin_get_user(
         UserPoolId='us-east-1_Example',
-        Username=cpf
+        Username=cpf #todo: aqui não seria só o cpf, ou seria?
     )
 
     # todo: validar como vamos fazer a autenticação do usuário, bater no banco e procurar por cadastro?
@@ -28,6 +29,7 @@ def lambda_handler(event, context):
         }
 
 
+# todo: essa função ta fazendo sentido?
 def generate_policy(principal_id, effect, resource):
     auth_response = {'principalId': principal_id}
     if effect and resource:
