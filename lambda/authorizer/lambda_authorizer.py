@@ -3,7 +3,7 @@ import boto3
 
 
 def lambda_handler(event, context):
-    cpf = event['headers'].get('cpf')  # todo: validar só o cpf? precisamos também validar corpo de cadastro
+    cpf = event['pathParameters']['CPF']  # todo: validar só o cpf? precisamos também validar corpo de cadastro
     if not cpf or not validate_cpf(cpf):
         return {
             "statusCode": 403,
