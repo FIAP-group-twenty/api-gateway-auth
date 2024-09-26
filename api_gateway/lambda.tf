@@ -56,7 +56,7 @@ resource "aws_iam_role_policy" "lambda_policy" {
         Action   = [
           "lambda:InvokeFunction"
         ],
-        Resource = "*"
+        Resource = aws_lambda_function.authorizer_lambda.arn
       },
       {
         Effect   = "Allow",
@@ -68,4 +68,17 @@ resource "aws_iam_role_policy" "lambda_policy" {
     ]
   })
 }
+
+data "aws_caller_identity" "current" {}
+
+resource "aws_lambda_permission" "allow_api_gateway" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.authorizer_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  # Substitua pelo seu ID de API Gateway
+  source_arn = "arn:aws:execute-api:${var.aws_region}:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.tech_challenge.id}/*"
+}
+
 
