@@ -25,8 +25,8 @@ jobs:
       - name: 'Build Lambda ZIP'
         run: |
           cd lambda
-          chmod +x build.sh  # Torna o script executável
-          ./build.sh         # Executa o script para empacotar o Lambda
+          chmod +x build.sh  
+          ./build.sh         
 
       - name: 'Terraform Init'
         run: terraform init
