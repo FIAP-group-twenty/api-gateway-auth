@@ -7,7 +7,7 @@ resource "aws_lambda_function" "authorizer_lambda" {
 
   environment {
     variables = {
-      COGNITO_USER_POOL_ID = aws_cognito_user_pool.user_pool.id #todo: resolver isso aq
+      COGNITO_USER_POOL_ID = aws_cognito_user_pool.user_pool.id
     }
   }
 }
@@ -77,7 +77,6 @@ resource "aws_lambda_permission" "allow_api_gateway" {
   function_name = aws_lambda_function.authorizer_lambda.function_name
   principal     = "apigateway.amazonaws.com"
 
-  # Substitua pelo seu ID de API Gateway
   source_arn = "arn:aws:execute-api:${var.aws_region}:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.tech_challenge.id}/*"
 }
 
