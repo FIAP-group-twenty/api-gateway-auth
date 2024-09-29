@@ -7,14 +7,6 @@ resource "aws_api_gateway_integration" "customer_create_integration" {
   integration_http_method = "POST"
   type                    = "HTTP"
   uri                     = "https://backend.example.com/v1/customer" //todo: definir
-
-  request_templates = {
-    "application/json" = jsonencode({
-      name  = "$input.json('$.name')",
-      email = "$input.json('$.email')",
-      cpf   = "$input.json('$.cpf')"
-    })
-  }
 }
 
 resource "aws_api_gateway_integration" "customer_get_integration" {
