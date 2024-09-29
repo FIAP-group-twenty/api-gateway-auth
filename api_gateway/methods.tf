@@ -18,10 +18,6 @@ resource "aws_api_gateway_method" "customer_get_by_cpf_method" {
   http_method   = "GET"
   authorization = "CUSTOM"
   authorizer_id = aws_api_gateway_authorizer.jwt_lambda.id
-
-  request_parameters = {
-    "integration.request.path.cpf" = "method.request.path.cpf"
-  }
 }
 
 ###################### ORDER ######################

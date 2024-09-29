@@ -24,10 +24,6 @@ resource "aws_api_gateway_integration" "customer_get_integration" {
   integration_http_method = "GET"
   type                    = "HTTP"
   uri                     = "https://backend.example.com/v1/customer/{cpf}" //todo: definir
-
-  request_parameters = {
-    "integration.request.path.cpf" = "method.request.path.cpf"
-  }
 }
 
 ###################### ORDER ######################
