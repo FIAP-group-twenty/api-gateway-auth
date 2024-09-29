@@ -20,7 +20,7 @@ resource "aws_api_gateway_method" "customer_get_by_cpf_method" {
   authorizer_id = aws_api_gateway_authorizer.jwt_lambda.id
 
   request_parameters = {
-    "method.request.path.cpf" = true
+    "integration.request.path.cpf" = "method.request.path.cpf"
   }
 }
 
