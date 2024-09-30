@@ -29,3 +29,5 @@ variable "order_update_path" {
   description = "Path para update no recurso order, utilizando ID"
   default     = "{id}"
 }
+
+###################### PAYMENT ######################
