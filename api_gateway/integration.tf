@@ -46,3 +46,22 @@ resource "aws_api_gateway_integration" "order_put_integration" {
 }
 
 ###################### PAYMENT ######################
+resource "aws_api_gateway_integration" "payment_webhook_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.tech_challenge.id
+  resource_id             = aws_api_gateway_resource.payment_webhook_resource.id
+  http_method             = aws_api_gateway_method.payment_webhook_method.http_method
+  integration_http_method = "PUT"
+  type                    = "HTTP"
+  uri                     = "https://backend.example.com/v1/payment/webhook" //todo: definir
+}
+
+resource "aws_api_gateway_integration" "payment_get_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.tech_challenge.id
+  resource_id             = aws_api_gateway_resource.payment_get_resource.id
+  http_method             = aws_api_gateway_method.payment_get_method.http_method
+  integration_http_method = "GET"
+  type                    = "HTTP"
+  uri                     = "https://backend.example.com/v1/payment/status/{orderId}" //todo: definir
+}
+
+###################### PRODUCT ######################
