@@ -31,16 +31,22 @@ variable "order_update_path" {
 }
 
 ###################### PAYMENT ######################
+variable "payment_path" {
+  type        = string
+  description = "Path base para o recurso de payment"
+  default     = "payment"
+}
+
 variable "webhook_path" {
   type        = string
   description = "Path base para o recurso de webhook do payment"
-  default     = "payment/webhook"
+  default     = "webhook"
 }
 
 variable "payment_get_path" {
   type        = string
   description = "Path para buscar status de pagamento utilizando ID de um pedido"
-  default     = "payment/status/{orderId}"
+  default     = "{orderId}"
 }
 
 ###################### PRODUCT ######################

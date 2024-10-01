@@ -25,15 +25,21 @@ resource "aws_api_gateway_resource" "order_put_resource" {
 }
 
 ###################### PAYMENT ######################
-resource "aws_api_gateway_resource" "payment_webhook_resource" {
+resource "aws_api_gateway_resource" "payment_resource" {
   rest_api_id = aws_api_gateway_rest_api.tech_challenge.id
   parent_id   = aws_api_gateway_rest_api.tech_challenge.root_resource_id
+  path_part   = var.payment_path
+}
+
+resource "aws_api_gateway_resource" "payment_webhook_resource" {
+  rest_api_id = aws_api_gateway_rest_api.tech_challenge.id
+  parent_id   = aws_api_gateway_resource.payment_resource.id
   path_part   = var.webhook_path
 }
 
 resource "aws_api_gateway_resource" "payment_get_resource" {
   rest_api_id = aws_api_gateway_rest_api.tech_challenge.id
-  parent_id   = aws_api_gateway_rest_api.tech_challenge.root_resource_id
+  parent_id   = aws_api_gateway_resource.payment_resource.id
   path_part   = var.payment_get_path
 }
 
