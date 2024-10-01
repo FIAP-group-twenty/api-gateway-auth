@@ -8,7 +8,7 @@ variable "aws_region" {
 variable "customer_path" {
   type        = string
   description = "Path base para o recurso de customer"
-  default     = "customer"
+  default     = "customers"
 }
 
 variable "customer_get_path" {
@@ -53,7 +53,7 @@ variable "payment_get_path" {
 variable "product_path" {
   type        = string
   description = "Path base para o recurso de product"
-  default     = "product"
+  default     = "products"
 }
 
 variable "product_get_path" {

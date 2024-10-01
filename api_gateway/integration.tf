@@ -5,7 +5,7 @@ resource "aws_api_gateway_integration" "customer_create_integration" {
   http_method             = aws_api_gateway_method.customer_post_method.http_method
   integration_http_method = "POST"
   type                    = "HTTP"
-  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/customer"
+  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/customers"
 }
 
 resource "aws_api_gateway_integration" "customer_get_integration" {
@@ -14,7 +14,7 @@ resource "aws_api_gateway_integration" "customer_get_integration" {
   http_method             = aws_api_gateway_method.customer_get_by_cpf_method.http_method
   integration_http_method = "GET"
   type                    = "HTTP"
-  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/customer/{cpf}"
+  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/customers/{cpf}"
 }
 
 ###################### ORDER ######################
@@ -71,7 +71,7 @@ resource "aws_api_gateway_integration" "product_create_integration" {
   http_method             = aws_api_gateway_method.product_create_method.http_method
   integration_http_method = "POST"
   type                    = "HTTP"
-  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/order"
+  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/products"
 }
 
 resource "aws_api_gateway_integration" "product_get_integration" {
@@ -80,7 +80,7 @@ resource "aws_api_gateway_integration" "product_get_integration" {
   http_method             = aws_api_gateway_method.product_get_method.http_method
   integration_http_method = "GET"
   type                    = "HTTP"
-  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/order"
+  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/products/{category}"
 }
 
 resource "aws_api_gateway_integration" "product_put_integration" {
@@ -89,7 +89,7 @@ resource "aws_api_gateway_integration" "product_put_integration" {
   http_method             = aws_api_gateway_method.product_put_method.http_method
   integration_http_method = "PUT"
   type                    = "HTTP"
-  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/order/{id}"
+  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/products/{id}"
 }
 
 resource "aws_api_gateway_integration" "product_delete_integration" {
@@ -98,5 +98,5 @@ resource "aws_api_gateway_integration" "product_delete_integration" {
   http_method             = aws_api_gateway_method.product_delete_method.http_method
   integration_http_method = "DELETE"
   type                    = "HTTP"
-  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/order/{id}"
+  uri                     = "http://ec2-44-203-35-124.compute-1.amazonaws.com:30005/v1/products/{id}"
 }
