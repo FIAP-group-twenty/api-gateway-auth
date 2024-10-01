@@ -44,3 +44,20 @@ variable "payment_get_path" {
 }
 
 ###################### PRODUCT ######################
+variable "product_path" {
+  type        = string
+  description = "Path base para o recurso de product"
+  default     = "product"
+}
+
+variable "product_get_path" {
+  type        = string
+  description = "Path para buscar produto filtrando por categoria"
+  default     = "{category}"
+}
+
+variable "product_put_or_delete_path" {
+  type        = string
+  description = "Path para recurso product, utilizando ID"
+  default     = "{id}"
+}
