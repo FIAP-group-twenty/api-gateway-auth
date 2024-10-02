@@ -59,7 +59,7 @@ variable "product_path" {
 variable "product_get_path" {
   type        = string
   description = "Path para buscar produto filtrando por categoria"
-  default     = "products/{category}"
+  default     = "{category}"
 }
 
 variable "product_put_or_delete_path" {
