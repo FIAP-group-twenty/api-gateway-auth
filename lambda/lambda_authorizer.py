@@ -24,12 +24,10 @@ def validar_token_expirado(token):
 
 def verificar_cpf_existente(cpf, user_pool_id):
     try:
-        # Tenta listar usuários filtrando pelo CPF
         response = cognito_client.list_users(
             UserPoolId=user_pool_id,
             Filter=f'username = "{cpf}"'
         )
-        # Se encontrar algum usuário, o CPF já existe
         if response['Users']:
             return True
         return False
@@ -46,8 +44,8 @@ def validar_cpf(cpf):
 def lambda_handler(event, context):
     authorization_header = event.get('headers', {}).get('Authorization')
     cpf = event.get('cpf')
-    user_pool_id = 'seu-user-pool-id'
-    client_id = 'seu-client-id'
+    user_pool_id = 'us-east-1_l15zbpxXJ'
+    client_id = '4spballtd0dqkv61g0k781e72q'
 
     if cpf:
         if not validar_cpf(cpf):
@@ -71,7 +69,7 @@ def lambda_handler(event, context):
                     'USERNAME': cpf
                 }
             )
-            jwt_token = response['AuthenticationResult']['IdToken']
+            jwt_token = response['AuthenticationResult']['AccessToken']
 
             return {
                 "statusCode": 200,
@@ -85,32 +83,35 @@ def lambda_handler(event, context):
             }
 
     elif authorization_header:
-        token = authorization_header.split(' ')[1]
+        if authorization_header:
+            token = authorization_header.split(' ')[1]
 
-        if validar_token_expirado(token):
-            return {
-                "statusCode": 401,
-                "body": json.dumps({"error": "Token expirado"})
-            }
+            if validar_token_expirado(token):
+                return {
+                    "statusCode": 401,
+                    "body": json.dumps({"error": "Token expirado"})
+                }
 
-        try:
-            response = cognito_client.get_user(
-                AccessToken=token
-            )
-            cpf = response['Username']
+            try:
+                response = cognito_client.get_user(
+                    AccessToken=token
+                )
+                cpf = response['Username']
+                cognito_client.get_user(AccessToken=token)
 
-            return {
-                "statusCode": 200,
-                "body": json.dumps({"cpf": cpf})  # todo: validar com o grupo, isso pode ser um problema
-            }
+                return {
+                    "statusCode": 200,
+                    "body": json.dumps({"cpf": cpf})
+                }
 
-        except cognito_client.exceptions.NotAuthorizedException:
-            return {
-                "statusCode": 401,
-                "body": json.dumps({"error": "Token inválido"})
-            }
+            except cognito_client.exceptions.NotAuthorizedException:
+                return {
+                    "statusCode": 401,
+                    "body": json.dumps({"error": "Token inválido"})
+                }
 
     return {
         "statusCode": 400,
-        "body": json.dumps({"error": "Nenhum CPF ou Authorization fornecido"})
+        "body": json.dumps({"error": "Nenhum Authorization Token fornecido"})
     }
+

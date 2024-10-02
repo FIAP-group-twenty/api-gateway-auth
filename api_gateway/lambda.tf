@@ -1,6 +1,6 @@
 resource "aws_lambda_function" "authorizer_lambda" {
-  function_name    = "AuthorizerLambda"
-  handler          = "lambda_function.lambda_handler"
+  function_name    = "lambda_authorizer"
+  handler          = "lambda_authorizer.lambda_handler"
   runtime          = "python3.9"
   role             = data.aws_iam_role.lambda_exec_role.arn
   filename         = "${path.module}/../lambda/lambda_authorizer.zip"
