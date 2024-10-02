@@ -46,5 +46,3 @@ jobs:
       - name: 'Terraform Apply'
         run: terraform apply -auto-approve
         working-directory: ./api_gateway
-        env:
-          TF_LOG: DEBUG
